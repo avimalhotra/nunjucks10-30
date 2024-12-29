@@ -5,6 +5,10 @@ const app=express();
 require('dotenv').config();
 const port=process.env.PORT || 3000;
 
+/* db */
+require("./dao");
+const [car,pin]=[require('./models/cars'),require('./models/pincode')];
+
 app.use(express.static(path.resolve('src/public')));
 app.use(express.static(path.resolve('node_modules/bootstrap/dist')));
 
@@ -23,8 +27,34 @@ app.get("/",(req,res)=>{
         month:["jan","feb","mar","apr"]
     });
 });
+
 app.get("/about",(req,res)=>{
     res.status(200).render("about.html",{ title:"About"});
+});
+
+app.get("/apicars",(req,res)=>{
+    car.find({},{_id:0,__v:0}).then(i=>{
+        res.status(200).json(i);
+    }).catch(e=>{
+        res.status(404).json(e);
+    });
+});
+app.get("/apipins",(req,res)=>{
+    pin.find({pincode:201301},{_id:0,__v:0}).then(i=>{
+        res.status(200).json(i);
+    }).catch(e=>{
+        res.status(404).json(e);
+    });
+});
+
+app.get("/search",(req,res)=>{
+    const query=req.query.car;
+
+    car.find({name:new RegExp(query,'i')},{_id:0,__v:0}).then(i=>{
+        if(i.length){res.status(200).send(i)}
+        else{res.status(200).send([{error:"No car found"}])}
+    });
+
 });
 
 

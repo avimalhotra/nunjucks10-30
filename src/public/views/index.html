@@ -15,11 +15,7 @@
         {% include 'nav.html' %}
         
         <main class="p-3">
-            <p>{{ "b" > "a" }}</p>
-            <p>{{ 2 > 10 }}</p>
-            <p>{{ 2>1 and 2>0 }}</p>
 
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga veniam fugit optio quae? Officia perferendis commodi tempora facere, voluptas dolorem veniam inventore laborum, deserunt nulla voluptatum praesentium non qui dolorum.</p>
             <h2>{{"apple" | title}}</h2>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga veniam fugit optio quae? Officia perferendis commodi tempora facere, voluptas dolorem veniam inventore laborum, deserunt nulla voluptatum praesentium non qui dolorum.</p>
             <ol>
@@ -32,6 +28,21 @@
                 <li>{{i | title}} - {{j | title }}</li>
                 {% endfor %}
             </ol>
+
+            <form action="/search" role="search" class="row align-items-center">
+                <div class="col-auto">
+                    <label for="car" class="form-label">Search : </label>
+                </div>
+                <div class="col-auto">
+                    <input id="car" type="search" class="form-control" name="car" required>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+                 
+                
+            </form>
+
         </main>
         
         {% include 'footer.html' %}
